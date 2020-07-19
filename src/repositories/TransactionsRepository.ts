@@ -1,4 +1,5 @@
 import Transaction from '../models/Transaction';
+import ICreateTransaction from '../dtos/ICreateTransaction';
 
 interface Balance {
   income: number;
@@ -21,8 +22,13 @@ class TransactionsRepository {
     // TODO
   }
 
-  public create(): Transaction {
+  public create({ title, value, type }: ICreateTransaction): Transaction {
     // TODO
+    const transaction = new Transaction({ title, value, type });
+
+    this.transactions.push(transaction);
+
+    return transaction;
   }
 }
 
