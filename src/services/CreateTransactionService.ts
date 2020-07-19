@@ -15,7 +15,14 @@ class CreateTransactionService {
   }
 
   public execute({ title, value, type }: IRequest): Transaction {
-    // TODO
+    if (type === 'outcome') {
+      const { total } = this.transactionsRepository.getBalance();
+
+      if (total < value) {
+        throw new Error('Insufficient Balance');
+      }
+    }
+
     const transaction = this.transactionsRepository.create({
       title,
       value,
